@@ -22,8 +22,8 @@
                     <p class="card-text">Condition: {{car.car_condition}}</p>
                     <form action="/car_app/dashboard/" method="POST">
                         {%csrf_token%}
-                        <input type="text" name='carid' value='{{car.id}}'>
-                        <input type="text" name='userid' value='{{user.id}}'>
+                        <input type="text" name='carid' value='{{car.id}}' label="carid">
+                        <input type="text" name='userid' value='{{user.id}}' label="userid">
 
                         <input class="btn btn-primary" name='checkout' type="submit" value="Book Your Journey">
                         <a href="/car_app/checkout/" class="btn btn-primary">Checkout</a>
