@@ -6,23 +6,35 @@
 
 <h2>Cars for Rent</h2>
 <div class="container">
+
+
+
     <div class="row">
         {% for car in cars %}
         <div class="=col-md-3">
             <div class="card" style="width: 18rem;">
-                <div class="card-body">
+                <div class="card mx-auto mb-3" style="width: 18rem;">
                     <h5 class="card-title">{{car.car_company}}</h5>
                     <p class="card-text">Rent: {{car.car_rent}}</p>
                     <p class="card-text">Kilometers: {{car.car_kilometers}}</p>
+                    <img src="{{car.image.url}}" class="card-img-top" alt="...">
                     <!-- <p class="card-text">{{car.car_last_rented}}</p> -->
                     <p class="card-text">Condition: {{car.car_condition}}</p>
-                    <a href="#" class="btn btn-primary" type="submit">Book Your Journey</a>
+                    <form action="/car_app/dashboard/" method="POST">
+                        {%csrf_token%}
+                        <input type="text" name='carid' value='{{car.id}}'>
+                        <input type="text" name='userid' value='{{user.id}}'>
+
+                        <input class="btn btn-primary" name='checkout' type="submit" value="Book Your Journey">
+                        <a href="/car_app/checkout/" class="btn btn-primary">Checkout</a>
+                    </form>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
 
 <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<h1>Welcome,{{user.username}} in Checkout</h1>
+
+<h2>CheckOut</h2>
+
+<div class="continer">
+
+    <h2>CheckOut</h2>
+
+    <h4>Your order hasbeen places</h4>
+
+
+</div>
+
+
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

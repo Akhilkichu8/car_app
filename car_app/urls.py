@@ -7,10 +7,11 @@ urlpatterns = [
 
 
     path('', views.indexView, name="home"),
-    path('dashboard/', views.dashboardView, name="dashboard"),
+    path('dashboard/', views.dashboardView, name="dashboard_Url"),
     path('login/', LoginView.as_view(), name="login_url"),
     path('register/', views.registerView, name="register_url"),
-    path('logout/', LogoutView.as_view(next_page='dashboard'), name="logout"),
+    path('checkout/',views.checkoutview,name="checkout_url"),
+    path('logout/', views.logout, name="logout"),
 
 
 ]
