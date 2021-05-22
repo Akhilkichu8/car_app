@@ -3,38 +3,63 @@
 
 {% block content %}
 <h1>Welcome,{{user.username}}</h1>
-
-<h2>Cars for Rent</h2>
-<div class="container">
-
+<div class="container-fluid mt-3">
+  <div class="row">
 
 
-    <div class="row">
-        {% for car in cars %}
-        <div class="=col-md-3">
-            <div class="card" style="width: 18rem;">
-                <div class="card mx-auto mb-3" style="width: 18rem;">
-                    <h5 class="card-title">{{car.car_company}}</h5>
-                    <p class="card-text">Rent: {{car.car_rent}}</p>
-                    <p class="card-text">Kilometers: {{car.car_kilometers}}</p>
-                    <img src="{{car.image.url}}" class="card-img-top" alt="...">
-                    <!-- <p class="card-text">{{car.car_last_rented}}</p> -->
-                    <p class="card-text">Condition: {{car.car_condition}}</p>
-                    <form action="/car_app/dashboard/" method="POST">
-                        {%csrf_token%}
-                        <input type="text" name='carid' value='{{car.id}}' label="carid">
+    <!--filter-->
+
+    <div class="col-lg-3 mx-auto">
+      <div class="list-group">
+
+        <a href="/" class="list-group-item list-group-item-action ">All Cars</a>
+
+
+        {% for status in statuses %}
+        <a href="/?status={{status.id}}" class="list-group-item list-group-item-action ">{{status.status}}</a>
+
+        <!-- {%if customer%} -->
+
+        <!--  {%endif%} -->
+        {% endfor %}
+      </div>
+      <a href="/checkout" class="list-group-item list-group-item-action">Return</a>
+
+
+    </div>
+
+    <h2>Cars for Rent</h2>
+    <div class="container">
+
+
+
+      <div id='cars' class="col-lg-9 mx-auto">
+        <div class="row mx-auto">
+          {% for car in cars %}
+          <div class="card mx-auto mb-3" style="width: 18rem;">
+
+
+            <img class="card-img-top" src="{{car.image.url}}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-title"><b>{{car.car_company}}</b></hp>
+              <p class="card-text"><b>Rs.{{car.car_rent}}</b></p>
+              <!-- <p class="card-text">{{car.car_last_rented}}</p> -->
+              <p class="card-text">Condition: {{car.car_condition}}</p>
+              <form action="/car_app/dashboard/" method="POST">
+                {%csrf_token%}
+                <!--<input type="text" name='carid' value='{{car.id}}' label="carid">
                         <input type="text" name='userid' value='{{user.id}}' label="userid">
 
-                        <input class="btn btn-primary" name='checkout' type="submit" value="Book Your Journey">
-                        <a href="/car_app/checkout/" class="btn btn-primary">Checkout</a>
-                    </form>
-                </div>
+                        <input class="btn btn-primary" name='checkout' type="submit" value="Book Your Journey">-->
+                <a href="/car_app/checkout/{{car.id}}" class="btn btn-primary">Checkout</a>
+              </form>
             </div>
+          </div>
         </div>
         {% endfor %}
+      </div>
     </div>
-</div>
 
 
-<a href="{% url 'logout' %}">Logout</a>
-{% endblock %}
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endblock %}

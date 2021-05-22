@@ -1,6 +1,8 @@
 from datetime import datetime
 
 from django.db import models
+from django import forms
+
 
 # Create your models here.
 
@@ -29,15 +31,12 @@ class Customer(models.Model):
     def __str__(self):
         return self.cus_name
 
+
 class logs(models.Model):
-    userid = models.FloatField()
-    carid = models.FloatField()
-    rentedDate = models.DateField(default=datetime.now(), blank=True)
-    returnDate = models.DateField(auto_now_add=True, blank=True)
-
-    #def register(self):
-       # self.save()
+    user_id = models.FloatField()
+    car_id = models.FloatField()
+    rentedDate = models.DateField(null=True)
+    returnDate = models.DateField(null=True)
 
 
-
-# Create your models here.
+# Create your mo

@@ -1,7 +1,5 @@
 {% extends 'index.html'%}
 {% block content %}
-{% load bootstrap4 %}
-
 
 
 <div>
@@ -27,37 +25,13 @@
 	{% csrf_token %}
 <!-- <input type="submit" value="Book and Proceed to Payment"/> -->
 <!-- <a href="#" class="btn btn-primary" type="submit">Book Your Journey</a> -->
-<div style="text-align:center; margin-top: 100px">
-
-    {% bootstrap_form form %}
-    {{form.date}}
-    {% buttons %}
-
-    <input type="text" name='carid' value='{{car.id}}' label="carid">
-    <input type="text" name='userid' value='{{user.id}}' label="userid">
-    <input href="car_app/final" class="btn btn-primary" name='checkout' type="submit" value="Book now">
 
 
-
-
-</div>
-
-
-<script>
-  $(function () {
-    $("#id_date").datepicker({
-      format:'dd/mm/yyyy',
-    });
-  });
-{% endbuttons %}
-
-</script>
-
-
+<a href="/sample" class="btn btn-primary" >Book Now</a>
 </form>
 
 
 </div>
 </div>
 </div>
-{% endblock content %}
+{% endblock %}

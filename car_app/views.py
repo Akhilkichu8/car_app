@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Car, logs
-from django.views import View
-from django.utils.decorators import method_decorator
+from .forms import checkout
+from datetime import datetime
 
 
 def indexView(request):
@@ -21,19 +21,42 @@ def dashboardView(request):
         return render(request, 'dashboard.html', {'cars': cars})
     else:
         postData = request.POST
-        userid = postData.get('userid')
-        carid = postData.get('carid')
+        userid = postData.get('carid')
+        carid = postData.get('userid')
         print(userid, carid)
-        Log = logs(userid=userid, carid=carid)
+        Log = logs(user_id=userid, car_id=carid)
         Log.save()
         cars = Car.objects.all()
         return render(request, 'dashboard.html', {'cars': cars})
 
 
-def checkoutview(request):
+def Booking(request, id):
+    car = Car.objects.get(id=id)
+
+
+def checkoutview(request, id):
+    form = checkout(request.GET)
     if request.method == 'GET':
-        #cars = Car.objects.all()
-        return render(request, 'checkout.html')
+        car = Car.objects.get(id=id)
+        return render(request, 'checkout.html', {'car': car, 'form': form})
+    else:
+        postData = request.POST
+        rentedDate = postData.get('rentedDate')
+        returnDate = postData.get('returnDate')
+        userid = postData.get('userid')
+        carid = postData.get('carid')
+        rent = Car.objects.get(id=int(carid)).car_rent
+        print(userid, carid, rentedDate, returnDate,rent)
+        Log = logs(user_id=userid, car_id=carid, rentedDate=rentedDate, returnDate=returnDate)
+        Log.save()
+        return render(request, 'final.html')
+
+
+def finalView(request):
+    if request.method == 'GET':
+        return render(request, 'final.html', {'form': form})
+    else:
+        pass
 
 
 def registerView(request):
