@@ -46,10 +46,17 @@ def checkoutview(request, id):
         userid = postData.get('userid')
         carid = postData.get('carid')
         rent = Car.objects.get(id=int(carid)).car_rent
-        print(userid, carid, rentedDate, returnDate,rent)
+        date_str1 = datetime.strptime(rentedDate, '%Y-%m-%d')
+        date_str2 = datetime.strptime(returnDate, '%Y-%m-%d')
+        date_diff = date_str2 - date_str1
+        total_rent = date_diff * rent
+
+
+
+        print(userid, carid, rentedDate, returnDate,rent,date_str1,date_str2,date_diff,total_rent)
         Log = logs(user_id=userid, car_id=carid, rentedDate=rentedDate, returnDate=returnDate)
         Log.save()
-        return render(request, 'final.html')
+        return render(request, 'final.html',{'total_rent':total_rent})
 
 
 def finalView(request):
